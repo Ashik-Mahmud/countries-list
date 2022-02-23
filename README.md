@@ -17,3 +17,15 @@ many more....
 
 
 # Features
+- Showing All Countries with Nice UI
+- Search Any Country by the name
+- Click to see country details
+- Preloader system
+
+# Live link in the about
+
+# Demo Preview of project
+![imagescreenshot](./preview.png)
+
+
+> Thanks for reach out me on github.
