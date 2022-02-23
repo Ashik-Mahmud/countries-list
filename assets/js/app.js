@@ -52,10 +52,11 @@ const openModal = () => {
             setTimeout(() => {
                 loadModalData(capital);
             }, 3000)
+    searchCountry();
+
         })
     })
 
-    searchCountry();
 
 }
 
@@ -191,11 +192,18 @@ const searchCountry = () => {
     const countryList = document.querySelectorAll('.country');
     countryList.forEach((country) => {
         let terms = country.querySelector('h3').innerText.toLowerCase();
-        if (!terms.includes(searchTerms)) {
-            country.style.display = 'none';
+        if (isNaN(searchTerms)) {
+            if (!terms.includes(searchTerms)) {
+                country.style.display = 'none';
+            } else {
+                country.style.display = 'block';
+            }
+            searchField.style = 'border: 1px solid #333;outline: 1px solid #333';
+
         } else {
-            country.style.display = 'block';
+            searchField.style = 'border: 1px solid #f00;outline: 1px solid #f00';
         }
+
     })
 
 }
