@@ -1,0 +1,151 @@
+/* country style sheet  */
+
+
+*,
+*::after,
+*::before {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: poppins;
+    font-size: 16px;
+}
+img{
+    max-width: 100%;
+    height: auto;
+}
+.container{
+    max-width: min(100% - 2rem, 1470px);
+    margin-inline: auto;
+}
+
+#header{
+    padding: 1rem;
+    background: #f2f2f2;
+    text-align: center;
+}
+#header .container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    flex-wrap: wrap;
+}
+#header input{
+    padding: .6rem;
+    border: 1px solid rgb(3, 3, 3);
+    font-family: poppins;
+    font-size: 1rem;
+    width: min(100%, 40%);
+    border-radius: 5px;
+}
+.wrapper{
+    position: relative;
+    padding: 1rem;
+}
+.wrapper .country-content{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 1rem;
+    position: relative;
+}
+
+.country{
+    position: relative;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    padding: 1rem;
+    cursor: pointer;
+}
+.country img{
+    height: 100px;
+    width: 100%;
+    object-fit: cover;
+}
+.country h3{
+    font-size: 1rem;
+}
+.country span{
+    display: block;
+    margin: 0rem 0rem;
+    font-size: .9rem;
+}
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* modal */
+
+.modal{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.582);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+    transition: all 0.5s ease-in;
+    opacity: 0;
+    pointer-events: none;
+}
+.modal.active{
+    opacity: 1;
+    pointer-events: all;
+}
+.modal-content{
+    background-color: #ffffff;
+    width: min(100% - 2rem, 800px);
+    padding: 1rem;
+    position: relative;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.178);
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: all 0.5s ease-in;
+}
+.modal.active .modal-content{
+    opacity: 1;
+    transform: translateY(0px);
+}
+.modal-content .modal-header{
+    padding: 1rem;
+    background: #f5f6fa;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.preloader{
+    text-align: center;
+}
+.modal-body{
+    padding: 1rem;
+    position: relative;
+}
+.modal-body table{
+    width: 100%;
+    text-align: left;
+    position: relative;
+}
+.modal-body table th,
+.modal-body table td{
+    padding: .5rem;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+table a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    background: rgb(10, 202, 138);
+}
