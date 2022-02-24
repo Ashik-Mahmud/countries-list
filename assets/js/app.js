@@ -12,7 +12,12 @@ const modal = document.getElementById('modal');
 const loadCountries = async () => {
     let response = await fetch(`https://restcountries.com/v3.1/all`);
     let data = await response.json();
-    displayCountry(data);
+    if(data){
+        displayCountry(data);
+        console.log(data)
+    }else{
+        console.log("page is loading")
+    }
 }
 // load data 
 document.querySelector('body').onload = () => {
@@ -60,7 +65,6 @@ const openModal = () => {
     })
 
 }
-
 /* step 5 load modal information */
 const loadModalData = (capital) => {
     fetch(`https://restcountries.com/v3.1/alpha/${capital}`)
