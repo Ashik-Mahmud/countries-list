@@ -10,28 +10,59 @@ const countryWrapper = document.querySelector(".country-content");
 const modal = document.getElementById('modal');
 /* step 2. load country at browser */
 const loadCountries = async () => {
+    let commArr = [];
     let response = await fetch(`https://restcountries.com/v3.1/all`);
     let data = await response.json();
-    if(data){
+
+    if (data) {
         displayCountry(data);
         console.log(data)
-    }else{
+    } else {
         console.log("page is loading")
     }
+    data.forEach((element) => {
+        commArr.push(`${element.region}`);
+    })
+    getRegion(commArr)
 }
 // load data 
 document.querySelector('body').onload = () => {
     countryWrapper.innerHTML = ``;
 }
+/* 9. get a region from api  */
+const region = document.getElementById('region');
+const getRegion = (countryRegion) => {
+    let uniqueRegion = [];
+    for (let uniqCountry of countryRegion) {
+        uniqueRegion.indexOf(uniqCountry) === -1 ? uniqueRegion.push(uniqCountry) : '';
+    }
+    uniqueRegion.map((singleRegion) => {
+        let option = document.createElement('option');
+        option.value = singleRegion;
+        option.innerText = singleRegion;
+        region.appendChild(option);
+    })
+}
+
+region.addEventListener('change', async () => {
+    countryWrapper.textContent = '';
+    let regionValue = region.value;
+    let response;
+    if (regionValue === 'all') {
+        response = await fetch(`https://restcountries.com/v3.1/all`);
+    } else {
+        response = await fetch(`https://restcountries.com/v3.1/region/${regionValue}`);
+    }
+    let data = await response.json();
+    displayCountry(data);
+
+})
+
 
 /* step 3. display country at UI  */
 const displayCountry = (countries) => {
+
     countries.forEach((country) => {
-        let langObject = country.languages;
-        let language;
-        for (let langs in langObject) {
-            language = langObject[langs].slice(0, 10);
-        }
         countryWrapper.innerHTML += `<div class="country" capital='${country.cca2}'>
                                     <img src="${country.flags.png}" alt="">
                                     <div class="flex">
@@ -39,12 +70,13 @@ const displayCountry = (countries) => {
                                             <h3>${country.name.common.slice(0, 15)}.</h3>
                                             <span>${country.capital ? country.capital : 'Not Available'}</span>
                                         </div>
-                                        <span>${language}</span>
+                                        <span>${country.region}</span>
                                     </div>
                                     </div>`;
 
 
     });
+
     openModal();
 }
 
@@ -207,5 +239,10 @@ const searchCountry = () => {
 }
 searchField.addEventListener('input', searchCountry);
 
+
+
+
+
 /* last step calling all required function  */
+
 loadCountries();
