@@ -52,7 +52,7 @@ img{
     grid-gap: 1rem;
     position: relative;
 }
-.preloader{
+.country-content .preloader{
     position: absolute;
     left: 50%;
     top: 50%;
@@ -114,6 +114,7 @@ img{
     position: relative;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.178);
     border-radius: 5px;
+    height: min(100%, auto);
     opacity: 0;
     transform: translateY(-50px);
     transition: all 0.5s ease-in;
@@ -121,6 +122,7 @@ img{
 .modal.active .modal-content{
     opacity: 1;
     transform: translateY(0px);
+    overflow: hidden;
 }
 .modal-content .modal-header{
     padding: 1rem;
@@ -131,6 +133,16 @@ img{
     
 }
 
+.modal-content .preloader{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 3;
+    inset: 0;
+    display: grid;
+    place-items: center;
+}
 
 .modal-body{
     padding: 1rem;

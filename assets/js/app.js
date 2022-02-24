@@ -14,17 +14,13 @@ const loadCountries = async () => {
     let data = await response.json();
     displayCountry(data);
 }
-
 // load data 
 document.querySelector('body').onload = () => {
     countryWrapper.innerHTML = ``;
 }
 
-
 /* step 3. display country at UI  */
-
 const displayCountry = (countries) => {
-
     countries.forEach((country) => {
         let langObject = country.languages;
         let language;
@@ -55,12 +51,11 @@ const openModal = () => {
         country.addEventListener('click', () => {
             let capital = country.getAttribute('capital');
             modal.classList.add('active');
-
             loadModalData(capital);
             searchCountry();
-
-
-
+            setTimeout(() => {
+                document.querySelector('.modal-content .preloader').style.display = 'none';
+            }, 2000);
         })
     })
 
@@ -77,8 +72,7 @@ const loadModalData = (capital) => {
 
 /* step 6 display modal info  */
 const displayModalInfo = (info) => {
-    console.log(info)
-    const modalContent = document.getElementById("modal-content");
+    const modalContent = document.getElementById("show-modal");
     // for currencies 
     let currencies = info.currencies;
     for (let currency in currencies) {
@@ -113,8 +107,7 @@ const displayModalInfo = (info) => {
     } else {
         borderText = 'Not available';
     }
-    modalContent.innerHTML = `
-                    <div class="modal-header">
+    let modalTag = `<div class="modal-header">
                         <h3>${info.name.official}</h3>
                         <img width="50px" src="${info.coatOfArms.png}" alt="images of">
                     </div>
@@ -174,8 +167,7 @@ const displayModalInfo = (info) => {
                             </tr>
                         </table>
                     </div>`;
-
-
+    modalContent.innerHTML = modalTag;
 }
 
 /* step 6 close modal by clicking outside in modal  */
@@ -183,6 +175,9 @@ document.addEventListener('click', (event) => {
     let targeted = event.target.id;
     if (targeted === 'modal') {
         modal.classList.remove('active');
+        setTimeout(() => {
+            document.querySelector('.modal-content .preloader').style.display = 'grid';
+        }, 1000);
     }
 })
 
@@ -194,7 +189,7 @@ const searchCountry = () => {
     const countryList = document.querySelectorAll('.country');
     countryList.forEach((country) => {
         let terms = country.querySelector('h3').innerText.toLowerCase();
-        searchField.value === '' ? country.style.display='block' : ''; 
+        searchField.value === '' ? country.style.display = 'block' : '';
         if (isNaN(searchTerms)) {
             !terms.includes(searchTerms) ? country.style.display = 'none' : country.style.display = 'block';
             searchField.style = 'border: 1px solid #333;outline: 1px solid #333';
