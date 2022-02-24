@@ -15,6 +15,12 @@ const loadCountries = async () => {
     displayCountry(data);
 }
 
+// load data 
+document.querySelector('body').onload = () => {
+    countryWrapper.innerHTML = ``;
+}
+
+
 /* step 3. display country at UI  */
 
 const displayCountry = (countries) => {
@@ -49,10 +55,10 @@ const openModal = () => {
         country.addEventListener('click', () => {
             let capital = country.getAttribute('capital');
             modal.classList.add('active');
-            setTimeout(() => {
-                loadModalData(capital);
-            }, 3000)
-    searchCountry();
+
+            loadModalData(capital);
+
+            searchCountry();
 
         })
     })
@@ -71,6 +77,7 @@ const loadModalData = (capital) => {
 
 /* step 6 display modal info  */
 const displayModalInfo = (info) => {
+    console.log(info)
     const modalContent = document.getElementById("modal-content");
     // for currencies 
     let currencies = info.currencies;
@@ -168,6 +175,7 @@ const displayModalInfo = (info) => {
                         </table>
                     </div>`;
 
+
 }
 
 /* step 6 close modal by clicking outside in modal  */
@@ -175,12 +183,7 @@ document.addEventListener('click', (event) => {
     let targeted = event.target.id;
     if (targeted === 'modal') {
         modal.classList.remove('active');
-        setTimeout(() => {
-            modal.querySelector('#modal-content').innerHTML = `
-                            <div class="preloader">
-                            <img src="./assets/image/preloader.gif" alt="preloader">
-                            </div>`;
-        }, 2000);
+
     }
 })
 

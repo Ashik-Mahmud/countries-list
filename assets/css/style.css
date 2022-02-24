@@ -52,7 +52,13 @@ img{
     grid-gap: 1rem;
     position: relative;
 }
-
+.preloader{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+    /* transform: translate(-50%, -50%); */
+}
 .country{
     position: relative;
     box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
@@ -88,7 +94,7 @@ img{
     left: 0%;
     top: 0%;
     z-index: 2;
-    background-color: rgba(0, 0, 0, 0.582);
+    background-color: #03202e9e;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -125,9 +131,7 @@ img{
     
 }
 
-.preloader{
-    text-align: center;
-}
+
 .modal-body{
     padding: 1rem;
     position: relative;
