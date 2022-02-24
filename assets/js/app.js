@@ -16,7 +16,6 @@ const loadCountries = async () => {
 
     if (data) {
         displayCountry(data);
-        console.log(data)
     } else {
         console.log("page is loading")
     }
