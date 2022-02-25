@@ -13,7 +13,6 @@ const loadCountries = async () => {
     let commArr = [];
     let response = await fetch(`https://restcountries.com/v3.1/all`);
     let data = await response.json();
-
     data.forEach((element) => {
         commArr.push(`${element.region}`);
     })
@@ -23,6 +22,27 @@ const loadCountries = async () => {
 // load data 
 document.querySelector('body').onload = () => {
     countryWrapper.innerHTML = ``;
+}
+/* step 7 work with search fields  */
+const searchField = document.getElementById('search-field');
+const searchCountry = async () => {
+    let searchTerms = searchField.value.toLowerCase();
+
+    let response = await fetch(`https://restcountries.com/v3.1/all`);
+    let data = await response.json();
+    loadSearchData(searchTerms, data);
+
+}
+searchField.addEventListener('input', searchCountry);
+/* function for load search data  */
+const loadSearchData = (searchVal, countries) => {
+    countryWrapper.textContent = '';
+    let filteredCountry = countries.filter((country) => country.name.common.toLowerCase().includes(searchVal) || (country.capital ? country.capital[0] : '').toLowerCase().includes(searchVal));
+    if (filteredCountry.length === 0) {
+        countryWrapper.innerHTML = `<p style="font-size: 2rem;position:absolute;width:100%; text-center;color:#f00;margin: 3rem 0rem;">Not Country Found by <strong>${searchVal}</strong></p>`;
+    } else {
+        displayCountry(filteredCountry);
+    }
 }
 /* 9. get a region from api  */
 const region = document.getElementById('region');
@@ -38,7 +58,6 @@ const getRegion = (countryRegion) => {
         region.appendChild(option);
     })
 }
-
 region.addEventListener('change', async () => {
     countryWrapper.textContent = '';
     let regionValue = region.value;
@@ -52,7 +71,6 @@ region.addEventListener('change', async () => {
     displayCountry(data);
 
 })
-
 
 /* step 3. display country at UI  */
 const displayCountry = (countries) => {
@@ -71,7 +89,6 @@ const displayCountry = (countries) => {
 
 
     });
-
     openModal();
 }
 
@@ -84,7 +101,6 @@ const openModal = () => {
             let capital = country.getAttribute('capital');
             modal.classList.add('active');
             loadModalData(capital);
-            searchCountry();
             setTimeout(() => {
                 document.querySelector('.modal-content .preloader').style.display = 'none';
             }, 2000);
@@ -213,26 +229,7 @@ document.addEventListener('click', (event) => {
 })
 
 
-/* step 7 work with search fields  */
-const searchField = document.getElementById('search-field');
-const searchCountry = () => {
-    let searchTerms = searchField.value.toLowerCase();
-    const countryList = document.querySelectorAll('.country');
-    countryList.forEach((country) => {
-        let terms = country.querySelector('h3').innerText.toLowerCase();
-        searchField.value === '' ? country.style.display = 'block' : '';
-        if (isNaN(searchTerms)) {
-            !terms.includes(searchTerms) ? country.style.display = 'none' : country.style.display = 'block';
-            searchField.style = 'border: 1px solid #333;outline: 1px solid #333';
 
-        } else {
-            searchField.style = 'border: 1px solid #f00;outline: 1px solid #f00';
-        }
-
-    })
-
-}
-searchField.addEventListener('input', searchCountry);
 
 
 
