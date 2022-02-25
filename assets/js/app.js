@@ -112,10 +112,8 @@ const openModal = () => {
 const loadModalData = (capital) => {
     fetch(`https://restcountries.com/v3.1/alpha/${capital}`)
         .then(response => response.json())
-        .then(data => displayModalInfo(data[0]))
+        .then(data => displayModalInfo(data[0]))  
 }
-
-
 
 /* step 6 display modal info  */
 const displayModalInfo = (info) => {
