@@ -14,14 +14,10 @@ const loadCountries = async () => {
     let response = await fetch(`https://restcountries.com/v3.1/all`);
     let data = await response.json();
 
-    if (data) {
-        displayCountry(data);
-    } else {
-        console.log("page is loading")
-    }
     data.forEach((element) => {
         commArr.push(`${element.region}`);
     })
+
     getRegion(commArr)
 }
 // load data 
